@@ -1,10 +1,16 @@
-import './App.css';
-
+import StudentList from './components/StudentList';
+import StudentContextProvider from './contexts/StudentContext';
 function App() {
 	return (
-		<div className='App'>
-			<h1>Hello world!</h1>
-		</div>
+		<StudentContextProvider>
+			<div className='container-xl mt-4'>
+				<div className='tabel-responsive'>
+					<div className='table-wrapper'>
+						<StudentList />
+					</div>
+				</div>
+			</div>
+		</StudentContextProvider>
 	);
 }
 
