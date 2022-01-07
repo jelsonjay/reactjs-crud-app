@@ -35,10 +35,17 @@ const StudentContextProvider = props => {
 		},
 		{
 			id: uuidv4(),
-			name: 'Martin Blank',
-			email: 'martinblank@mail.com',
-			address: 'Via Monte Bianco 34, Turin, Italy',
-			phone: '(480) 631-2097'
+			name: 'Sarah Helen',
+			email: 'sarah@gmail.com',
+			address: 'Northumberland Street 23, Newcastle, England',
+			phone: '0191-431-7017'
+		},
+		{
+			id: uuidv4(),
+			name: 'Greenh peter',
+			email: 'sarah@gmail.com',
+			address: 'Leicestershires Street, 723, Leicester, England',
+			phone: '0101-481-6010'
 		}
 	]);
 
