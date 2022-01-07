@@ -1,39 +1,40 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 export const StudentContext = createContext();
 
 const StudentContextProvider = props => {
-	const [students] = useState([
+	const [students, setStudent] = useState([
 		{
-			id: 1,
-			name: 'Thomas Hardy10',
-			email: 'thomashardy@mail.com',
-			address: '89 Chiaroscuro Rd, Portland, USA',
-			phone: '(171) 555-2222'
+			id: uuidv4(),
+			name: 'James Thompson',
+			email: 'james@gmail.com',
+			address: '12 Park Hills Rd,London, England',
+			phone: '003-144-785-0123'
 		},
 		{
-			id: 2,
-			name: 'Dominique Perrier',
-			email: 'dominiqueperrier@mail.com',
-			address: 'Obere Str. 57, Berlin, Germany',
+			id: uuidv4(),
+			name: 'Joe Deo',
+			email: 'joe@gmail.com',
+			address: 'Lincon-in Green Street. 77, Leeds, England',
 			phone: '(313) 555-5735'
 		},
 		{
-			id: 3,
-			name: 'Maria Anders',
-			email: 'mariaanders@mail.com',
-			address: '25, rue Lauriston, Paris, France',
-			phone: '(503) 555-9931'
+			id: uuidv4(),
+			name: 'Bond Smith',
+			email: 'smith@outlook.com',
+			address: 'Castlefield 85 Street, Manchester, England',
+			phone: '0181-235-0805'
 		},
 		{
-			id: 4,
-			name: 'Fran Wilson',
-			email: 'franwilson@mail.com',
-			address: 'C/ Araquil, 67, Madrid, Spain',
-			phone: '(204) 619-5731'
+			id: uuidv4(),
+			name: 'Phil Mike',
+			email: 'phil@hotmail.com',
+			address: 'Park Hills Street, 53, Liverpool, England',
+			phone: '0101-703-3210'
 		},
 		{
-			id: 5,
+			id: uuidv4(),
 			name: 'Martin Blank',
 			email: 'martinblank@mail.com',
 			address: 'Via Monte Bianco 34, Turin, Italy',
@@ -41,8 +42,40 @@ const StudentContextProvider = props => {
 		}
 	]);
 
+	useEffect(() => {
+		setStudent(JSON.parse(localStorage.getItem('students')));
+	}, []);
+
+	useEffect(() => {
+		localStorage.setItem('students', JSON.stringify(students));
+	});
+
+	const sortedStudents = students.sort((a, b) => (a.name < b.name ? -1 : 1));
+
+	const addStudent = (name, email, address, phone) => {
+		setStudent([...students, { id: uuidv4(), name, email, address, phone }]);
+	};
+
+	const removeStudent = id => {
+		setStudent(students.filter(student => student.id !== id));
+	};
+
+	const editStudent = (id, editedStudent) => {
+		setStudent(
+			students.map(student => (student.id === id ? editedStudent : student))
+		);
+	};
+
 	return (
-		<StudentContext.Provider value={{ students }}>
+		<StudentContext.Provider
+			value={{
+				sortedStudents,
+				students,
+				addStudent,
+				removeStudent,
+				editStudent
+			}}
+		>
 			{props.children}
 		</StudentContext.Provider>
 	);
